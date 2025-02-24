@@ -1,0 +1,125 @@
+/* 
+Autor: Pietra Rocha 
+Data: 24/02/2025
+Descricao: Codigo de Variaveis Globais 
+*/
+
+//******DECLARACAO DE VARIAVEIS GLOBAIS******
+
+int numeroA = 10;
+int numeroB = 3;
+int resultado = 0;
+float resultadoReal = 0;
+
+void setup()
+{
+  Serial.begin(9600);  //baud rate bit`s por segundo (bsp)
+  
+  
+  
+  //*****SOMA****
+  resultado = numeroA + numeroB;
+  Serial.print("A soma do numeroA com o numeroB eh: ");
+  Serial.println(resultado);
+  
+  
+ //****SUBTRACAO****
+  resultado = numeroB - numeroA;
+  Serial.print("A subtracao do numeroB pelo numeroA eh: ");
+  Serial.println(resultado);
+  
+  
+  //****MULTIPLICACAO****
+  resultado = numeroA * numeroB;
+  Serial.print("A multiplicacao do numeroA pelo numeroB eh: ");
+  Serial.println(resultado);
+  
+  
+  //****DIVISAO****
+  resultado = numeroA / numeroB;
+  Serial.print("A divisao do numeroA pelo numeroB eh: ");
+  Serial.println(resultado);
+  resultado =  numeroA % numeroB; //retorna o resto da divisao
+  Serial.print("portanto sobra ");
+  Serial.println(resultado);
+  resultadoReal = numeroA / numeroB;
+  
+  
+  //divisao com numeros decimais
+  resultadoReal = (float)numeroA / (float)numeroB;
+  Serial.print("resultado da divisao em numeros decimais: ");
+  Serial.println(resultadoReal,1); 
+  
+  
+  //****POTENCIACAO****
+  resultadoReal = pow(numeroA, numeroB); //numeroA elevado a numeroB
+  Serial.print("numeroA elevado a numeroB: "); 
+  Serial.println(resultadoReal,0); //sem casas decimais
+  
+  
+  //****AO QUADRADO****
+  resultado = sq(numeroB); //square (quadrado)
+  Serial.print("numeroB ao quadrado: ");
+  Serial.println(resultado);
+  
+  
+  //****RAIZ QUADRADA****
+  resultadoReal = sqrt(numeroA); //square root (raiz quadrada) 
+  Serial.print("a raiz quadrada de numeroA: ");
+  Serial.println(resultadoReal);
+  
+  
+  //****MODULO****
+  resultado = abs(numeroA * -1); 
+  Serial.print("numero absoluto (modulo): ");
+  Serial.println(resultado);
+  
+  //****RESTRICAO****
+  resultado = constrain(numeroA, 4, 8);
+  Serial.print("numero de resultado dentro do limite (estourou o limite superior): ");
+  Serial.println(resultado);
+  resultado = constrain(numeroB, 4, 8);
+  Serial.print("numero de resultado dentro do limite (estourou o limite inferior): ");
+  Serial.println(resultado);
+  resultado = constrain(numeroA, 0, 100); 
+  Serial.print("numero de resultado dentro do limite: ");
+  Serial.println(resultado);
+               
+  
+  //****REMAPEAMENTO****
+  resultado = map(511, 0, 1023, 0, 100); 
+  //map(valor, deMenor, deMaior, paraMenor, paraMaior);
+  Serial.print("uma conversao de numeros dentro de um limite especifico: ");
+  Serial.println(resultado);
+  
+  
+  //****OPERADORES DE ATRIBUICAO****
+  //INCREMENTO (+1)
+  numero++; //numeroA = numeroA + 1; (pos incremento)
+  ++numeroA; //(pre incremento) 
+  
+  //DECREMENTO (-1)
+  numeroA--; //numeroA = numeroA -1; (pos incremento)
+  --numeroA; //(pre incremento)
+  
+  //numeroA = numeroA + 3; 
+  numeroA + = 3;
+ 
+  //numeroA = numeroA - 3;
+  numeroA - = 3;
+  
+  //numeroA = numeroA * 3;
+  numeroA * = 3;
+  
+  //numeroA = numeroA / 5;
+  numeroA / = 5;
+  
+  
+               
+}
+
+
+void loop()
+{
+  
+}
