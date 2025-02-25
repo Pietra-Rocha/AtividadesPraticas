@@ -1,0 +1,114 @@
+/* 
+Autor: Pietra Rocha 
+Data: 24/02/2025
+Descricao: Exercicios de Matematica 
+*/
+
+int numeroA = 600;
+int numeroB = 0;
+int numeroC = 20;
+int numeroD = 10;
+int resultado = 0;
+float resultadoReal = 0;
+
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  //EXERCICIO 1 
+  resultado = map(numeroA, 0, 1023, 0, 100); 
+  Serial.println(resultado);
+  
+  resultado = constrain(resultado, 20, 80);
+  Serial.println(resultado);
+  
+  
+  
+  //EXERCICIO 2 
+  numeroB +=1;
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB +=1; 
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  numeroB -=1;
+  Serial.println(numeroB);
+  
+  
+  
+  
+  //EXERCICIO 3 
+  resultado = numeroC + numeroD ;
+    Serial.print("A soma do numeroC e do numeroD eh: ");
+    Serial.println(resultado);
+  
+  resultado /=2;
+    Serial.print("A divisao do valor final da soma por 2 eh: ");
+    Serial.println(resultado);
+  
+  resultadoReal = (float)resultado;
+    Serial.print("resultado da divisao em numeros decimais: "); 
+    Serial.println(resultadoReal, 1);
+  
+  //resultadoMedia =  (valor1 + valor2) /2; 
+  
+  
+}
+
+void loop()
+       
+{
+  
+}
