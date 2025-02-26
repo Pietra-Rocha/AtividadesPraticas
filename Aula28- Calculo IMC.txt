@@ -1,0 +1,53 @@
+/* 
+Autor: Pietra Rocha 
+Data: 26/02/2025
+Descricao: Calculo IMC  
+*/
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  float peso = 68;
+  float altura = 1.55;
+  float resultadoReal = 0;
+  
+  
+  
+  resultadoReal = (float)altura * (float)altura;
+  Serial.print("altura ao quadrado eh: ");
+  Serial.println(resultadoReal);
+  
+  resultadoReal = peso / resultadoReal;
+  Serial.print("o resultado do IMC eh: ");
+  Serial.println(resultadoReal);
+  
+  if(resultadoReal < 17){
+    Serial.println("Muito baixo do ideal");
+
+  }else if(resultadoReal >= 17 && resultadoReal < 18.49){
+    Serial.println("Abaixo do peso");
+    
+  }else if(resultadoReal >= 18.5 && resultadoReal < 24.99){
+    Serial.println("Peso normal");
+    
+  }else if(resultadoReal >= 25 && resultadoReal < 29.99){
+    Serial.println("Acima do Peso");
+  
+  }else if(resultadoReal >= 30 && resultadoReal < 34.99){
+     Serial.println("Obesidade grau 1");
+    
+  }else if(resultadoReal >= 35 && resultadoReal < 36.99){
+    Serial.println("Obesidade grau 2");
+    
+  }else if(resultadoReal > 40){
+    Serial.println("Obesidade grau 3");
+  }
+    
+}
+
+
+void loop()
+{
+  
+}

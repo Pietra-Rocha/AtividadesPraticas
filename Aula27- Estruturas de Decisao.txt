@@ -1,0 +1,53 @@
+/* 
+Autor: Pietra Rocha 
+Data: 25/02/2025
+Descricao: Estruturas de decisão  
+*/
+
+    //****OPERADORES DE COMPARACAO****//
+   // = ATRIBUICAO, SALVAR VALOR NA VARIAVEL //
+  // == VERIFICA SE DOIS VALORES SAO IGUAIS //
+ // != VERIFICA SE DOIS VALORES SAO DIFERENTES //
+// < VERIFICA SE EH MENOR //
+// > VERIFICA SE EH MAIOR //
+// <= VERIFICA SE EH MENOR OU IGUAL //
+// >= VERIFICA SE EH MAIOR OU IGUAL //
+
+
+
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  int temperatura = 45;
+  
+  /*
+  //se a temperatura for maior que 25//
+  if(temperatura > 25){
+   Serial.println("Temperatura bem elevada");
+  }else{ //se nao//
+   Serial.println("Temperatura ambiente");  
+  }
+  */
+  
+  //se a temperatura for maior que 25//
+  if(temperatura > 30){
+   Serial.println("Temperatura Elevada");
+  }else if(temperatura <= 30 && temperatura > 24){ //se nao//
+   Serial.println("Temperatura Ambiente");
+    
+  }else if(temperatura <= 24 && temperatura > 18){ //se nao//
+   Serial.println("Temperatura Amenua");
+    
+  }else{
+   Serial.println("Ta friozinho");
+  }
+  
+  
+}
+
+void loop()
+{
+  
+}
