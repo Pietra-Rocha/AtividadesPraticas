@@ -1,0 +1,134 @@
+/* 
+Autor: Pietra Rocha 
+Data: 27/02/2025
+Descricao: Aula 29 - Estruturas de Decisão - Exercícios
+*/
+
+#define pinLedAzul 12
+#define pinLedVermelho 13
+#define pinLedBranco 11
+
+void setup()
+{
+    
+  Serial.begin(9600);
+  
+  
+  /* Exercicio 1 */
+  int temperatura = 31;
+  
+  pinMode(pinLedAzul,OUTPUT);  //Defina o pino do led como saida
+  if(temperatura > 30){digitalWrite(pinLedAzul,HIGH);
+  }else if(temperatura < 30){digitalWrite(pinLedAzul,LOW);
+                            }
+  
+  
+  /* Exercicio 2 */
+  int bateria = 19;
+  
+  pinMode(pinLedVermelho,OUTPUT);
+  if(bateria < 20){digitalWrite(pinLedVermelho,HIGH);
+  }else if(bateria > 20){digitalWrite(pinLedVermelho,LOW);
+                        }
+   
+  
+  /* Exercicio 3 */
+  
+  int numero = 4;
+  int resultado = 0;
+  
+  resultado = numero % 2;
+  pinMode(pinLedBranco, OUTPUT);
+  if(resultado== 0){digitalWrite(pinLedBranco, HIGH);
+                   }
+  
+  
+  
+  /*Exercicio 4 */
+  
+  int numeroI = 8;
+    
+  if(numeroI > 0){
+   Serial.println("Numero Positivo");
+  }else if(numeroI < 0){ 
+   Serial.println("Numero Negativo");
+  }
+  
+  /*Exercicio 5*/
+  
+   int salario = 950;
+  
+   if(salario < 1000){
+   Serial.print("Nome: Pietra - Cargo: Auxiliar na area de TI, com o salario igual a: ");
+   Serial.println(((salario * 10) /100) +salario);
+   }else if(resultado);
+   
+     
+     
+  /*Exercicio 6*/
+    
+   int salarioII = 450;
+  
+   if(salarioII < 500){
+   Serial.print("de acordo com o aumento de 30% no salario o novo valor eh igual a: ");
+   Serial.println(((salarioII * 30) /150) +salarioII);
+   }  
+     
+  
+  
+  /*Exercicio 7*/
+  
+  int numeroA = 10;
+  int numeroB = 8;
+    
+    if(numeroA > numeroB){
+    Serial.println("Numero Maior: 10");
+    }
+  
+  
+  
+    if(numeroB < numeroA){
+    Serial.println("Numero Menor: 8");
+    }
+  
+  
+  /*Exercicio 8*/
+  
+    int nota1 = 6;
+    int nota2 = 7;
+    int nota3 = 5;
+    int nota4 = 8;
+    float media = 0;
+  
+  
+  media = (nota1 + nota2 + nota3 + nota4) / 4;
+    Serial.println("Resultado: ");
+  
+  if(media >= 7){
+    Serial.println("Aprovado");
+  }
+  
+  if(media < 7 && media >= 5){
+    Serial.println("Recuperacao");
+  }
+  
+  if(media <= 5){
+    Serial.println("Reprovado");
+  }
+  
+  
+   
+
+
+  
+  
+}
+
+void loop()
+{
+ 
+  
+  
+  
+  
+}
