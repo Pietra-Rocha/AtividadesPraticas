@@ -1,0 +1,62 @@
+/*Autor: Pietra Rocha 
+Data: 06/03/2025
+Descricao: Aula 30 - switch case
+*/
+
+#define pinLedVermelho 13
+#define pinLedAzul 12
+#define pinLedVerde 11
+#define pinLedBranco 10
+#define pinLedLaranja 9
+
+void setup()
+{
+  pinMode(pinLedVermelho, OUTPUT);
+  pinMode(pinLedAzul, OUTPUT);
+  pinMode(pinLedVerde, OUTPUT);
+  pinMode(pinLedBranco, OUTPUT);
+  pinMode(pinLedLaranja, OUTPUT);
+  
+  Serial.begin(9600);
+  
+  int AR = 2;
+  
+  
+  switch(AR)
+  {
+   case 0:
+   digitalWrite(pinLedVermelho, HIGH);
+   Serial.println("Pessimo");
+   break;
+   case 1:
+   digitalWrite(pinLedAzul, HIGH);
+   Serial.println("Ruim");
+   break;
+   case 2:
+   digitalWrite(pinLedVerde, HIGH);
+   Serial.println("Normal");
+   break;
+   case 3:
+   digitalWrite(pinLedBranco, HIGH);
+   Serial.println("Bom");
+   break;
+   case 4:
+   digitalWrite(pinLedLaranja, HIGH);
+   Serial.println("Excelente");
+   break; 
+    
+   default:
+   Serial.println("ERRO");
+   break;
+    
+  }
+  
+  
+  
+  
+}
+
+void loop()
+{
+  
+}
