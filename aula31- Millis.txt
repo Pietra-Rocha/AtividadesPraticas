@@ -1,0 +1,47 @@
+/*
+Autor: Pietra Rocha 
+Data: 07/03/2025
+Descricao: Aula 31 - millis 
+*/
+
+#define pinLedAzul 13
+#define pinLedBranco 12
+
+unsigned long tempoAtual;
+
+long tempoDecorrido = 0;
+long tempoDecorridoII = 0;
+
+long tempoLedAzul = 700;
+long tempoLedBranco = 500;
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  pinMode(pinLedAzul, OUTPUT);
+  pinMode(pinLedBranco, OUTPUT);
+  
+ 
+}
+
+void loop()
+{
+  
+  /*millis*/
+  
+  tempoAtual = millis();
+  
+  
+  if(tempoAtual - tempoDecorrido > tempoLedAzul) {
+     tempoDecorrido = tempoAtual;
+     digitalWrite(pinLedAzul, !digitalRead(pinLedAzul));
+  }
+  
+  if(tempoAtual - tempoDecorridoII > tempoLedBranco) {
+     tempoDecorridoII = tempoAtual;
+     digitalWrite(pinLedBranco, !digitalRead(pinLedBranco));
+  }
+    
+  
+}
