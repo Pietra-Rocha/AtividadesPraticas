@@ -1,0 +1,33 @@
+/*
+Autor: Pietra Rocha 
+Data: 11/03/2025
+Descricao: Aula 35 - Botao 
+*/
+
+#define Botao 8
+#define led 10
+
+int estadoAnterior = 0;   // Estado anterior do botão
+int estadoBotao = 0;         // Contador de cliques
+int estadoLed = 0;
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(Botao, INPUT); 
+    pinMode(led, OUTPUT);
+}
+
+void loop() {
+  
+    int estadoAtual = digitalRead(Botao);
+    if (estadoAtual == 1 && estadoAnterior == 0) {  /* 1(HIGH) 0(LOW)*/
+        estadoBotao++;
+        estadoLed = !estadoLed;
+        digitalWrite(led, estadoLed);
+        Serial.print("Clique numero: ");
+        Serial.println(estadoBotao);
+        
+ 
+  }
+  estadoAnterior = estadoAtual;
+}
