@@ -1,0 +1,18 @@
+/* 
+Autor: Pietra Rocha 
+Data: 14/03/2025
+Descricao: Aula 37 - Botao Analogico
+*/
+void setup()
+{
+  Serial.begin (9600);
+}
+
+void loop()
+{
+  int valor = analogRead(A0);
+  //Serial.println(valor);
+  int resultado = map(valor, 0, 1023, 0, 100);
+  Serial.println(resultado);
+  
+}

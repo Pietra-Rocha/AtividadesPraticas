@@ -1,0 +1,45 @@
+#include <LiquidCrystal_I2C.h> 
+
+/*^- codigo de como o display funciona*/
+
+/*
+Autor: Pietra Rocha 
+Data: 13/03/2025
+Descricao: Aula 36 - Display com contagem variavel. 
+*/
+
+#define Botao 12
+
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
+
+void setup()
+{
+  lcd.init();
+  lcd.backlight();
+  pinMode(12, INPUT);
+}
+
+void loop()
+{
+  bool leituraBotao = digitalRead(12);
+  static bool leituraAnterior = 0;
+  static int contagem = 0;
+  static bool SomaSubtracao = 0; //0-SOMA 1-SUBTRACAO//
+  
+  
+  if(leituraBotao == 1 && leituraAnterior == 0){
+    if(SomaSubtracao == 0){
+    contagem++;
+    if(contagem == 5) SomaSubtracao = 1;
+    }
+    else{
+    contagem--;
+    if(contagem == 1) SomaSubtracao = 0;
+    }
+    
+    lcd.print(contagem);
+  }
+  
+  leituraAnterior = leituraBotao;
+  
+}

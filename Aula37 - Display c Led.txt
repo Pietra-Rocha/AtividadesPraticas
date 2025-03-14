@@ -1,0 +1,49 @@
+#include <LiquidCrystal_I2C.h>
+
+
+
+/*^- codigo de como o display funciona*/
+
+/*
+Autor: Pietra Rocha 
+Data: 14/03/2025
+Descricao: Aula 37 - display c led
+*/
+
+#define Botao 10 
+#define led 11
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+int estadoAnterior = 0;   // Estado anterior do botão
+int estadoBotao = 0;         // Contador de cliques
+int estadoLed = 0;
+
+void setup()
+{
+  lcd.init();
+  lcd.backlight();
+  pinMode(12, INPUT);
+  pinMode(11, OUTPUT);
+  
+}
+
+void loop()
+{
+  int estadoAtual = digitalRead(Botao);
+    if (estadoAtual == 1 && estadoAnterior == 0) {  /* 1(HIGH) 0(LOW)*/
+      estadoLed = !estadoLed;
+      digitalWrite(led, estadoLed);
+    if (estadoLed == 1){
+      lcd.setCursor(0, 0);
+      lcd.print("LED LIGADO   ");
+      
+      
+    }else{ //caso contrario 
+      lcd.setCursor(0, 0);
+      lcd.print("LED DESLIGADO");
+      
+  }
+  }
+  estadoAnterior = estadoAtual;
+}

@@ -1,0 +1,29 @@
+/* 
+Autor: Pietra Rocha 
+Data: 14/03/2025
+Descricao: Aula 37 - Botao Analogico temperatura
+*/
+void setup()
+{
+  Serial.begin (9600);
+}
+
+void loop()
+{
+  int temperatura = analogRead(A0);
+  
+  if(temperatura < 200){
+   Serial.println("Temperatura Muito Baixa");
+  }else if(temperatura >= 200 && temperatura < 400){ //se nao//
+   Serial.println("Temperatura Baixa");
+    
+  }else if(temperatura >= 400 && temperatura < 600){ //se nao//
+   Serial.println("Temperatura Ambiente");
+    
+  }else if(temperatura >= 600 && temperatura < 800){ //se nao//
+   Serial.println("Temperatura Alta");
+    
+  }else{
+   Serial.println("Temperatura Muito Alta");
+  }
+}
