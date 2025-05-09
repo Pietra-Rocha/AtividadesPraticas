@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../Primeiro Projeto"
+		},
+		{
+			"name": "Segundo Projeto",
+			"path": "../../Segundo Projeto"
+		},
+		{
+			"name": "Aula45",
+			"path": "../../Aula45"
+		},
+		{
+			"name": "Aula46",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
