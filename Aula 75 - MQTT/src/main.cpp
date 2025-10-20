@@ -7,9 +7,9 @@
 #include <PubSubClient.h>
 #include <WiFi.h>
 #include <ArduinoJson.h>
-#include <Bounce2.h>
 #include <DHT.h>
 #include "Led.h"
+#include "Botao.h"
 
 void callback(char *, byte *, unsigned int);
 void conectmqtt(void);
@@ -19,21 +19,32 @@ Timezone tempo;
 WiFiClient espClient;
 PubSubClient client(espClient);
 DHT dht(5, DHT22);
-Bounce Boot = Bounce();
+Botao botao(0);
 JsonDocument doc;
+Led ledESP(2);
+Led ledAmarelo(18);
+Led ledVermelho(19);
+Led ledBranco(21);
 
 //* ---------------------------------------------
 //*     VARIAVEIS
 //* ---------------------------------------------
-const char *mqtt_server = "broker.hivemq.com";
+const char *mqtt_server = "test.mosquitto.org";
 const int mqtt_port = 1883;
 const char *mqtt_client_id = "senai134_esp_pietra";
 const char *mqtt_topic_sub = "senai134/mesa02/esppietra/subs";
 const char *mqtt_topic_pub = "senai134/mesa02/esppietra/public";
 
-static bool piscaLed = false;
-static bool estadoLed = false;
-unsigned long tempoPisca = 500; // Tempo de piscamento do LED, em milissegundos
+int tempoPisca = 500;
+bool piscaLed = false;
+bool estadoLed = false;
+
+unsigned long contador = 0; // Contador de pressões do botão
+
+int freqEsp = 3;
+int freqVermelho = 3;
+int freqAmarelo = 3;
+int freqBranco = 3;
 
 //* ---------------------------------------------
 //*     INICIO DAS ACOES
@@ -41,8 +52,6 @@ unsigned long tempoPisca = 500; // Tempo de piscamento do LED, em milissegundos
 void setup()
 {
   Serial.begin(9600);
-  pinMode(2, OUTPUT);
-  Boot.attach(0, INPUT_PULLUP);
 
   dht.begin();
 
@@ -57,11 +66,33 @@ void setup()
 
 void loop()
 {
-  Boot.update();
-  checkWiFi();
+  botao.tratamento();
 
-  bool atualizacao = false;
-  bool estadoBotao = false;
+  if (botao.pressionado())
+  {
+    contador++;
+    Serial.print("Botao foi pressionado : ");
+    Serial.println(contador);
+  }
+
+  if (botao.pressionando())
+  {
+    ledESP.ligar();
+  }
+
+  if (botao.solto())
+  {
+    Serial.println("Botao Solto");
+    ledESP.desligar();
+  }
+
+  float temperaturaLed = dht.readTemperature();
+  ledESP.update();
+  ledAmarelo.update();
+  ledVermelho.update();
+  ledBranco.update();
+
+  checkWiFi();
 
   if (!client.connected())
   {
@@ -86,6 +117,7 @@ void loop()
     }
 
     // Preenche o JSON
+    doc["Alerta Temperatura"] = temperaturaLed;
     doc["temperatura"] = temperatura;
     doc["umidade"] = umidade;
     doc["timestamp"] = millis();
@@ -96,40 +128,60 @@ void loop()
 
     // Publica os dados
     client.publish(mqtt_topic_pub, mensagem.c_str()); // .c_str() converte String para const char*
-    Serial.print("Publicado: ");
-    Serial.println(mensagem);
+    // Serial.print("Publicado: ");
+    // Serial.println(mensagem);
 
     tempoAnterior = tempoAtual;
   }
 
-  if (Boot.changed())
-  {
-    estadoBotao = !Boot.read(); // Atualiza o estado do botão
+  /*if (Boot.changed())
+    {
+      estadoBotao = !Boot.read(); // Atualiza o estado do botão
 
-    // Cria o objeto JSON para enviar o estado do botão
-    doc["estadoBotao"] = estadoBotao;
+      // Cria o objeto JSON para enviar o estado do botão
+      doc["estadoBotao"] = estadoBotao;
 
-    // Serializando o JSON para string
-    String mensagemBotao;
-    serializeJson(doc, mensagemBotao);
+      // Serializando o JSON para string
+      String mensagemBotao;
+      serializeJson(doc, mensagemBotao);
 
-    // Publicando o JSON no tópico MQTT
-    client.publish(mqtt_topic_pub, mensagemBotao.c_str());
-    Serial.print("Publicado: ");
-    Serial.println(mensagemBotao);
-  }
+      // Publicando o JSON no tópico MQTT
+      client.publish(mqtt_topic_pub, mensagemBotao.c_str());
+      Serial.print("Publicado: ");
+      Serial.println(mensagemBotao);
+    }*/
 
-  
   static unsigned long tempoAnteriorPisca = 0;
 
-  if (piscaLed == true)
+  if (tempoAtual - tempoAnteriorPisca > 500)
   {
-    if (tempoAtual - tempoAnteriorPisca > tempoPisca)
+    if (temperaturaLed < 30 && temperaturaLed > 27) // LED amarelo
     {
-      estadoLed = !estadoLed;
-      tempoAnteriorPisca = tempoAtual;
+      piscaLed = true;
+      ledAmarelo.piscar(freqAmarelo);
+      ledVermelho.desligar();
+      ledBranco.desligar();
     }
-    digitalWrite(2, estadoLed);
+    else if (temperaturaLed > 30) // led vermelho
+    {
+      piscaLed = true;
+      ledVermelho.piscar(freqVermelho);
+      ledAmarelo.desligar();
+    }
+    else if (temperaturaLed > 0 && temperaturaLed < 27) // led branco
+    {
+      piscaLed = true;
+      ledBranco.ligar();
+      ledAmarelo.desligar();
+      ledVermelho.desligar();
+    }
+    else
+    {
+      ledBranco.desligar();
+      ledVermelho.desligar();
+      ledAmarelo.desligar();
+    }
+    tempoAnteriorPisca = tempoAtual;
   }
 }
 
@@ -167,17 +219,38 @@ void callback(char *topic, byte *payload, unsigned int length)
       switch (acaoLed)
       {
       case 0:
-        estadoLed = false;
-        piscaLed = false;
+        ledESP.desligar();
+        ledAmarelo.desligar();
+        ledVermelho.desligar();
+        ledBranco.desligar();
         break;
 
       case 1:
-        estadoLed = true;
-        piscaLed = false;
+        ledESP.ligar();
+        ledAmarelo.ligar();
+        ledVermelho.ligar();
+        ledBranco.ligar();
         break;
 
       case 2:
-        piscaLed = true;
+        if (!doc["frequenciaLed"].isNull())
+        {
+          JsonObject freq = doc["frequenciaLed"];
+
+          if (freq["esp"])
+            freqEsp = freq["esp"];
+          if (freq["vermelho"])
+            freqVermelho = freq["vermelho"];
+          if (freq["amarelo"])
+            freqAmarelo = freq["amarelo"];
+          if (freq["branco"])
+            freqBranco = freq["branco"];
+        }
+
+        ledESP.piscar(freqEsp);
+        ledVermelho.piscar(freqVermelho);
+        ledAmarelo.piscar(freqAmarelo);
+        ledBranco.piscar(freqBranco);
         break;
 
       default:

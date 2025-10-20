@@ -8,6 +8,9 @@ Led::Led(int pin)
     digitalWrite(pino, LOW);
 }
 
+/**
+ * @brief liga o led
+ */
 void Led::ligar()
 {
     estadoLed = true;
@@ -15,6 +18,9 @@ void Led::ligar()
     digitalWrite(pino, HIGH);
 }
 
+/**
+ * @brief Desliga o led
+ */
 void Led::desligar()
 {
     estadoLed = false;
@@ -22,12 +28,19 @@ void Led::desligar()
     digitalWrite(pino, LOW);
 }
 
+/**
+ * @brief Inverte o estado do led
+ */
 void Led::inverter()
 {
     estadoLed = !estadoLed;
     digitalWrite(pino, estadoLed);
 }
 
+/**
+ * @brief Pisca o led
+ * @param frequencia frenquencia em Hz que o Led devera piscar
+ */
 void Led::piscar(float frequencia)
 {
     if (frequencia == 0)
@@ -37,6 +50,9 @@ void Led::piscar(float frequencia)
     modoPiscar = true;
 }
 
+/**
+ * @brief Funcao que atualiza o estado do Led no modo piscar
+ */
 void Led::update()
 {
     if (!modoPiscar)
@@ -50,6 +66,7 @@ void Led::update()
     }
 }
 
+//atributos
 int Led::getPino()
 {
     return pino;
